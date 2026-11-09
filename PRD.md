@@ -56,7 +56,7 @@
 - **RUN 중 인벤토리 진입 처리**: 달리는 중에 `I`를 누르면 update가 계속되므로 캐릭터가 계속 달려 버린다. 이를 막기 위해 인벤토리 진입 시 캐릭터를 정지시킨다.
   - `pressed_keys`를 비우고 `dir = 0`으로 만든다.
   - 상태가 RUN이면 `stop_run()`으로 IDLE로 전환한다 (IDLE 타이머가 이 시점부터 시작되어 5초 후 눕는다).
-  - 이 처리는 `Boy`에 메서드(예: `boy.stop()`)로 두고 인벤토리 모드 `init()`에서 호출한다.
+  - 이 처리는 `Boy`에 메서드(예: `boy.stop()`)로 두고 `play_mode.pause()`에서 호출한다. `push_mode` 시 항상 불리므로 일시정지(`P`) 중 키를 뗀 경우도 함께 해결된다.
 - 인벤토리 중에 놓은 방향키의 `KEYUP`은 캐릭터에 전달되지 않으므로, 위와 같이 `pressed_keys`를 비워 복귀 후 키가 눌린 채로 남는 문제를 방지한다.
 
 ## 4. 구현 설계
@@ -81,7 +81,6 @@ import play_mode
 def init():
     global image
     image = load_image('item_select.png')
-    play_mode.boy.stop()
 
 
 def finish():

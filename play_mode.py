@@ -48,7 +48,9 @@ def finish():
 
 
 def pause():
-    pass
+    # 다른 모드가 위에 쌓이면 키 입력(KEYUP 포함)이 캐릭터에 전달되지 않으므로
+    # 눌린 키 상태를 비우고 멈춰 세운다 (일시정지·인벤토리 공통)
+    boy.stop()
 
 
 def resume():

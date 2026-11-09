@@ -9,7 +9,7 @@ ITEM_KEYS = {SDLK_0: 0, SDLK_1: 1, SDLK_2: 2}  # 볼 없음, 작은 볼, 큰 볼
 def init():
     global image
     image = load_image('item_select.png')
-    play_mode.boy.stop()  # 인벤토리 동안 캐릭터는 움직일 수 없다
+    # 캐릭터 정지는 push_mode 시 호출되는 play_mode.pause()에서 처리한다
 
 
 def finish():

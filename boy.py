@@ -18,6 +18,7 @@ class Boy:
         self.dir = 0
         self.face_dir = 1
         self.pressed_keys = set()
+        self.item = 1  # 0: 볼 없음, 1: 작은 볼, 2: 큰 볼
 
         self.machine = Machine(
             model=self,
@@ -47,8 +48,17 @@ class Boy:
         self.frame = 0
 
     def fire_ball(self):
-        ball = Ball(self.x, self.y, self.face_dir * 10)
+        if self.item == 0:
+            return
+        ball = Ball(self.x, self.y, self.face_dir * 10, self.item)
         game_world.add_oject(ball)
+
+    def stop(self):
+        # 조작이 차단될 때 호출: 눌린 키를 잊고 제자리에 선다
+        self.pressed_keys.clear()
+        self.dir = 0
+        if self.state == 'RUN':
+            self.stop_run()
 
     def handle_event(self, event):
         if (event.type == SDL_KEYDOWN and

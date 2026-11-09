@@ -2,13 +2,17 @@ from pico2d import get_canvas_width, load_image
 
 import game_world
 
+SMALL, BIG = 1, 2
+IMAGE_FILES = {SMALL: 'ball21x21.png', BIG: 'ball41x41.png'}
+
 
 class Ball:
-    image = None
+    images = {}
 
-    def __init__(self, x, y, velocity):
-        if Ball.image is None:
-            Ball.image = load_image('ball21x21.png')
+    def __init__(self, x, y, velocity, size=SMALL):
+        if size not in Ball.images:
+            Ball.images[size] = load_image(IMAGE_FILES[size])
+        self.image = Ball.images[size]
         self.x, self.y = x, y
         self.velocity = velocity
 
